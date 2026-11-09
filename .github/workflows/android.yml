@@ -25,6 +25,11 @@ jobs:
       with:
         java-version: '21'
         distribution: 'adopt'
+    - name: Cache Gradle dependencies
+      uses: actions/cache@v4
+      with:
+        path: ~/.gradle/caches
+        key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
     - name: Repo Visualizer
       uses: githubocto/repo-visualizer@0.8.2
     - name: build app apk
@@ -43,6 +48,11 @@ jobs:
         with:
          java-version: '21'
          distribution: 'adopt'
+      - name: Cache Gradle dependencies
+        uses: actions/cache@v4
+        with:
+          path: ~/.gradle/caches
+          key: ${{ runner.os }}-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
       - name: build app apk
         run: ./gradlew :app:assembleChargeRelease;
       - name: build imitate apk
